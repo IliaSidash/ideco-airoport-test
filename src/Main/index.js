@@ -9,7 +9,7 @@ const LinkTo = styled(Link)`
   color: green;
 `;
 
-const Main = ({ flights, onHandleSort }) => (
+const Main = ({ flights, onHandleSort, board }) => (
   <div>
     <Grid>
       <LinkTo
@@ -34,7 +34,7 @@ const Main = ({ flights, onHandleSort }) => (
         Табло прилета
       </LinkTo>
     </Grid>
-    <Scoreboard flights={flights} onHandleClick={onHandleSort} />
+    <Scoreboard flights={flights} onHandleClick={() => onHandleSort(board)} />
   </div>
 );
 
