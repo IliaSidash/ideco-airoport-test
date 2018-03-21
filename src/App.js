@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { set, cloneDeep } from 'lodash/fp';
+import axios from 'axios';
 
 import Main from './Main';
-import { depart, arrival } from './Main/data';
 
 const sortFlights = flights =>
   flights.sort((first, second) => {
@@ -16,39 +15,33 @@ const sortFlights = flights =>
     return 0;
   });
 
-const resetSort = (board) => {
-  if (board === 'depart') {
-    return cloneDeep(depart);
-  }
-  if (board === 'arrival') {
-    return cloneDeep(arrival);
-  }
-  return null;
-};
-
 class App extends Component {
   state = {
-    depart: cloneDeep(depart),
-    arrival: cloneDeep(arrival),
-    sorted: {
-      depart: false,
-      arrival: false,
-    },
+    depart: [],
+    arrival: [],
   };
 
+  componentDidMount() {
+    axios
+      .get('api/depart')
+      .then(res => res.data)
+      .then(depart =>
+        this.setState({
+          depart,
+        }));
+    axios
+      .get('api/arrival')
+      .then(res => res.data)
+      .then(arrival =>
+        this.setState({
+          arrival,
+        }));
+  }
+
   handleSort = (board) => {
-    if (!this.state.sorted[board]) {
-      this.setState(prevState => ({
-        [board]: sortFlights(prevState[board]),
-        sorted: set(`${board}`, !prevState.sorted[board], prevState.sorted),
-      }));
-    }
-    if (this.state.sorted[board]) {
-      this.setState(prevState => ({
-        [board]: resetSort(board),
-        sorted: set(`${board}`, !prevState.sorted[board], prevState.sorted),
-      }));
-    }
+    this.setState(prevState => ({
+      [board]: sortFlights(prevState[board]),
+    }));
   };
 
   render() {
