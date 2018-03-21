@@ -23,7 +23,7 @@ const arrival = [
   {
     id: 1,
     number: 123,
-    airoport: 'VKO',
+    airoport: 'LCA',
     aircraft: 'AIRBUS A320',
     time: 1521193476000,
     departTime: 1521207876000,

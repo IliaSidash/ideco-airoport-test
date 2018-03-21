@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import ru from 'date-fns/locale/ru';
 
 import Counter from './Counter';
 
@@ -72,7 +73,7 @@ const status = {
   boarding: 'Посадка',
 };
 
-const formateDate = milliseconds => format(milliseconds, 'DD MMMM, HH:mm');
+const formateDate = milliseconds => format(milliseconds, 'DD MMMM, HH:mm', { locale: ru });
 const formateTime = milliseconds => format(milliseconds, 'HH:mm');
 
 const Scoreboard = ({ flights, onHandleClick }) => (
