@@ -2,11 +2,11 @@ const depart = [
   {
     id: 1,
     number: 123,
-    airoport: 'VKO',
+    airoport: 'SVX',
     aircraft: 'AIRBUS A320',
     time: 1521193476000,
     departTime: 1521207876000,
-    status: 'arrived',
+    status: 'departed',
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const depart = [
     aircraft: 'AIRBUS A320',
     time: 1521193476000,
     departTime: 1521207876000,
-    status: 'arrived',
+    status: 'boarding',
   },
 ];
 

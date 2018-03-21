@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import styled from 'styled-components';
-import Clock from 'react-live-clock';
+import { format } from 'date-fns';
 
 import Counter from './Counter';
 
@@ -46,17 +46,34 @@ const headers = [
   },
   {
     id: 4,
-    text: 'Фактическое время',
+    text: 'Время',
   },
   {
     id: 5,
-    text: 'Время',
+    text: 'Фактическое время',
   },
   {
     id: 6,
     text: 'Статус',
   },
 ];
+
+const airoports = {
+  SVX: 'Екатеринбург',
+  LCA: 'Ларнака',
+  MOW: 'Москва',
+  BCN: 'Барселона',
+};
+
+const status = {
+  delayed: 'Задержка',
+  arrived: 'Прибыл',
+  departed: 'Вылетел',
+  boarding: 'Посадка',
+};
+
+const formateDate = milliseconds => format(milliseconds, 'DD MMMM, HH:mm');
+const formateTime = milliseconds => format(milliseconds, 'HH:mm');
 
 const Scoreboard = ({ flights, onHandleClick }) => (
   <Grid>
@@ -76,13 +93,11 @@ const Scoreboard = ({ flights, onHandleClick }) => (
       {flights.map(flight => (
         <TableRow key={flight.id}>
           <TableCol>{flight.number}</TableCol>
-          <TableCol>{flight.airoport}</TableCol>
+          <TableCol>{airoports[flight.airoport]}</TableCol>
           <TableCol>{flight.aircraft}</TableCol>
-          <TableCol>
-            <Clock format="HH:mm:ss" ticking timezone="Asia/Yekaterinburg" />
-          </TableCol>
-          <TableCol>{flight.departTime}</TableCol>
-          <TableCol>{flight.status}</TableCol>
+          <TableCol>{formateDate(flight.departTime)}</TableCol>
+          <TableCol>{formateTime(flight.departTime)}</TableCol>
+          <TableCol>{status[flight.status]}</TableCol>
         </TableRow>
       ))}
     </Table>
