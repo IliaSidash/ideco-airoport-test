@@ -27,15 +27,22 @@ app.get('/api/arrival', (req, res) => {
 //   res.send(flight);
 // });
 
-// app.post('/flights', (req, res) => {
-//   const flight = {
-//     id: Date.now(),
-//     airoport: req.body.airoport,
-//   };
+app.post('/api/depart', (req, res) => {
+  console.log(req.body);
 
-//   flights.push(flight);
-//   res.send(flight);
-// });
+  const flight = {
+    id: Date.now(),
+    number: req.body.flights.number,
+    airoport: req.body.flights.airoport,
+    aircraft: req.body.flights.aircraft,
+    time: req.body.flights.time,
+    departTime: req.body.flights.departTime,
+    status: req.body.flights.status,
+  };
+
+  depart.push(flight);
+  res.send(flight);
+});
 
 // app.put('/flights/:id', (req, res) => {
 //   const flight = flights.find(el => el.id === Number(req.params.id));
