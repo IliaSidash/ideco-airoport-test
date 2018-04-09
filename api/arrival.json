@@ -2,7 +2,7 @@
   {
     "id": 1,
     "number": 123,
-    "airoport": "LCA",
+    "airoport": "Ларнака",
     "aircraft": "AIRBUS A320",
     "time": 1521193476000,
     "departTime": 1521207876000,
@@ -11,10 +11,10 @@
   {
     "id": 2,
     "number": 213,
-    "airoport": "BCN",
+    "airoport": "Барселона",
     "aircraft": "AIRBUS A320",
     "time": 1521193476000,
     "departTime": 1521207876000,
-    "status": "arrived"
+    "status": "Прибыл"
   }
 ]

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 
 import Main from './Main';
+import Admin from './Admin';
 
 const sortFlights = flights =>
   flights.sort((first, second) => {
@@ -44,6 +45,24 @@ class App extends Component {
     }));
   };
 
+  handleAdd = (board, flights) => {
+    axios
+      .post(`/api/${board}`, { flights })
+      .then(response => response.data)
+      .then((flight) => {
+        this.setState({ [board]: [...this.state[board], flight] });
+      })
+      .catch(error => console.log(error));
+  };
+
+  handleDelete = (board, id) => {
+    axios.delete(`/api/${board}/${id}`).then(() => {
+      this.setState(prevState => ({
+        [board]: prevState[board].filter(el => el.id !== id),
+      }));
+    });
+  };
+
   render() {
     const { depart, arrival } = this.state;
     return (
@@ -61,6 +80,19 @@ class App extends Component {
             path="/arrival"
             render={props => (
               <Main flights={arrival} board="arrival" onHandleSort={this.handleSort} {...props} />
+            )}
+          />
+          <Route
+            exact
+            path="/admin"
+            render={props => (
+              <Admin
+                arrival={arrival}
+                depart={depart}
+                onDelete={this.handleDelete}
+                onAdd={this.handleAdd}
+                {...props}
+              />
             )}
           />
         </Fragment>

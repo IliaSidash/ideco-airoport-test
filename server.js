@@ -22,14 +22,7 @@ app.get('/api/arrival', (req, res) => {
   res.send(arrival);
 });
 
-// app.get('/flights/:id', (req, res) => {
-//   const flight = flights.filter(el => el.id === Number(req.params.id));
-//   res.send(flight);
-// });
-
 app.post('/api/depart', (req, res) => {
-  console.log(req.body);
-
   const flight = {
     id: Date.now(),
     number: req.body.flights.number,
@@ -44,11 +37,32 @@ app.post('/api/depart', (req, res) => {
   res.send(flight);
 });
 
-// app.put('/flights/:id', (req, res) => {
-//   const flight = flights.find(el => el.id === Number(req.params.id));
-//   flight.airoport = req.body.airoport;
-//   res.send(flights);
-// });
+app.post('/api/arrival', (req, res) => {
+  const flight = {
+    id: Date.now(),
+    number: req.body.flights.number,
+    airoport: req.body.flights.airoport,
+    aircraft: req.body.flights.aircraft,
+    time: req.body.flights.time,
+    departTime: req.body.flights.departTime,
+    status: req.body.flights.status,
+  };
+
+  arrival.push(flight);
+  res.send(flight);
+});
+
+app.delete('/api/depart/:id', (req, res) => {
+  const index = depart.findIndex(el => el.id === req.params.id);
+  depart.splice(index, 1);
+  res.sendStatus(204);
+});
+
+app.delete('/api/arrival/:id', (req, res) => {
+  const index = arrival.findIndex(el => el.id === req.params.id);
+  arrival.splice(index, 1);
+  res.sendStatus(204);
+});
 
 app.listen(8080, () => {
   console.log('Example app listening on port 8080!');
